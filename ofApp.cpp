@@ -66,7 +66,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofBackground( 255, 255, 255);	//Set the background color
+	ofBackground(0);	//Set the background color
 
     sumX = 0;
     sumY = 0;
@@ -116,6 +116,11 @@ void ofApp::draw(){
        avgY = sumY / numOfEntries;
     }
 
+    //if(avgX > 0.075){
+    //cout << "avgX: " << endl;
+    //cout << avgX << endl;
+    //}
+    //
     // draw average vector for feed's optical flow
     ofPushMatrix();
     ofPushStyle();
@@ -135,18 +140,28 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::door(float p){
 
+    if(avgX < 0.075){
+    //if(!ofInRange(p,-20,20)){
+    cout << "p: " << endl;
+    cout << p << endl;
+    }
+
     ofPushMatrix();
     ofPushStyle();
     ofSetRectMode(OF_RECTMODE_CENTER);
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
+    if(ofInRange(avgX,-0.075,0.075)){
     // rotate X, Y, Z via phase
-    ofRotateZ(p);
+    //ofRotateZ(p);
+    ofScale(0.5);
+    }
+    ofRotateY(p);
     float s = abs(sin(ofDegToRad(p))) + 0.3;
     ofScale(s,s,s);
     ofNoFill();
-    ofSetColor(0);
+    ofSetColor(255);
     ofSetLineWidth(3);
-    ofDrawRectangle(0, 0, 200,200);
+    ofDrawEllipse(0, 0, 300,300);
     ofPopStyle();
     ofPopMatrix();
 
