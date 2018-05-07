@@ -101,10 +101,10 @@ void ofApp::draw(){
 
                 //Draw only long vectors
                 
-                // if ( fabs( fx ) + fabs( fy ) > 1 ) {
-                // ofDrawRectangle( x-0.5, y-0.5, 1, 1 );
-                // ofDrawLine( x, y, x + fx, y + fy );
-                // }
+                if ( fabs( fx ) + fabs( fy ) > 1 ) {
+                ofDrawRectangle( x-0.5, y-0.5, 1, 1 );
+                ofDrawLine( x, y, x + fx, y + fy );
+                }
             }
         }
         ofPopMatrix();
@@ -116,11 +116,6 @@ void ofApp::draw(){
        avgY = sumY / numOfEntries;
     }
 
-    //if(avgX > 0.075){
-    //cout << "avgX: " << endl;
-    //cout << avgX << endl;
-    //}
-    //
     // draw average vector for feed's optical flow
     ofPushMatrix();
     ofPushStyle();
@@ -130,8 +125,8 @@ void ofApp::draw(){
     ofPopStyle();
     ofPopMatrix();
 
-    // visual elements: 4 doors
-    int numOfDoors = 4;
+    // visual elements: # of doors
+    int numOfDoors = 3;
     for (int i=0; i<numOfDoors; i++){
         door(phase + i * 180/numOfDoors);
     }
@@ -140,21 +135,10 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::door(float p){
 
-    if(avgX < 0.075){
-    //if(!ofInRange(p,-20,20)){
-    cout << "p: " << endl;
-    cout << p << endl;
-    }
-
     ofPushMatrix();
     ofPushStyle();
     ofSetRectMode(OF_RECTMODE_CENTER);
     ofTranslate(ofGetWidth()/2, ofGetHeight()/2);
-    if(ofInRange(avgX,-0.075,0.075)){
-    // rotate X, Y, Z via phase
-    //ofRotateZ(p);
-    ofScale(0.5);
-    }
     ofRotateY(p);
     float s = abs(sin(ofDegToRad(p))) + 0.3;
     ofScale(s,s,s);
